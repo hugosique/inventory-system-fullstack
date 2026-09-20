@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const productSchema = z.object({
-    id: z.string().optional(),
     name: z
         .string()
         .trim()
@@ -23,5 +22,11 @@ export const productSchema = z.object({
 });
 
 export type ProductPayload = z.infer<typeof productSchema>;
+
+export type Product = ProductPayload & {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+};
 
 export type ProductFormErrors = Partial<Record<keyof ProductPayload, string>>;

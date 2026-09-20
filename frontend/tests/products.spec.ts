@@ -1,10 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
-import type { ProductPayload } from '../src/core/schemas/product.schema'
-
-type Product = ProductPayload & {
-  createdAt: string
-  updatedAt: string
-}
+import type { Product } from '../src/core/schemas/product.schema'
 
 const baseProducts: Product[] = [
   {

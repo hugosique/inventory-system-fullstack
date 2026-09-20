@@ -1,6 +1,6 @@
 import { apiClient } from '../../core/lib/apiClient'
 import { simulateDelayMs } from '../../core/utils/delay';
-import type { Product, ProductPayload } from '../types/product.type'
+import type { Product, ProductPayload } from '../../core/schemas/product.schema'
 
 export async function listProducts(query?: string): Promise<Product[]> {
   const { data } = await simulateDelayMs(apiClient.get<Product[]>('/products', {

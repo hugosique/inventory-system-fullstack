@@ -14,6 +14,8 @@ Aplicação fullstack de gerenciamento de inventário.
 - **Docker** + **Docker Compose** (recomendado para subir tudo)
 - **Node.js 22+** e **npm** (para rodar localmente sem Docker e rodar os testes)
 
+Para desenvolvimento local com NVM, execute `nvm use` na raiz. O arquivo `.nvmrc` seleciona Node.js 24.
+
 ## ⚙️ Inicialização via Docker (recomendado)
 
 ### 1) Configurar variáveis de ambiente
@@ -44,8 +46,15 @@ Com os containers rodando:
 
 ```bash
 docker compose exec backend npm run db:push
-docker compose exec backend npm run seed (opcional)
+docker compose exec backend npm run seed # opcional
 ```
+
+O comando `db:push` é necessário na primeira inicialização para criar a tabela `Product`.
+Subir os containers não cria as tabelas da aplicação. Na execução via Compose,
+mantenha `db:5432` no `DATABASE_URL`; use `localhost:5432` somente com o backend fora do Docker.
+
+Depois de alterar código ou dependências, atualize as imagens com
+`docker compose up --build -d backend frontend`.
 
 ## 💻 Inicialização local (sem Docker para backend/frontend)
 
@@ -69,7 +78,7 @@ DATABASE_URL="postgresql://admin:password@localhost:5432/inventory_db"
 cd backend
 npm install
 npm run db:push
-npm run seed (opcional)
+npm run seed # opcional
 npm run dev
 ```
 
@@ -104,7 +113,7 @@ npm test
 ```bash
 cd frontend
 npm install
-npm run test
+npm run e2e
 npm run ui
 ```
 

@@ -7,7 +7,7 @@ import { Pencil, Trash } from "lucide-react";
 // Hooks
 import { useDeleteProduct } from "../../../core/hooks/useProducts";
 // Types
-import type { ProductPayload } from "../../../core/schemas/product.schema";
+import type { Product } from "../../../core/schemas/product.schema";
 import type { ColumnDef } from "../../../shared/components/table/Table";
 // Components
 import { Button } from "../../../shared/components/button/Button";
@@ -17,7 +17,7 @@ import { Alert } from "../../../shared/components/alert/Alert";
 import { currencyFormatter } from "../../../core/utils/currency";
 
 interface ProductDataTableProps {
-  products: ProductPayload[];
+  products: Product[];
 }
 
 export function ProductDataTable({ products }: ProductDataTableProps) {
@@ -30,14 +30,14 @@ export function ProductDataTable({ products }: ProductDataTableProps) {
       });
     }
   }
-  const [productToDelete, setProductToDelete] = useState<ProductPayload | null>(
+  const [productToDelete, setProductToDelete] = useState<Product | null>(
     null,
   );
-  function handleDeleteRequest(product: ProductPayload): void {
+  function handleDeleteRequest(product: Product): void {
     setProductToDelete(product);
   }
 
-  const columns = useMemo<ColumnDef<ProductPayload>[]>(
+  const columns = useMemo<ColumnDef<Product>[]>(
     () => [
       {
         key: "name",
@@ -104,7 +104,7 @@ export function ProductDataTable({ products }: ProductDataTableProps) {
         ),
       },
     ],
-    [deleteProduct.variables],
+    [deleteProduct.isPending, deleteProduct.variables],
   );
 
   return (
